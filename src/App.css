@@ -1,4 +1,13 @@
-.App {
+*{
+  margin: 0;
+}
+
+.ButtonSpace{
+  display: flex;
+  justify-content: flex-end;
+  flex-direction: row;
+}
+/*.App {
   text-align: center;
 }
 
@@ -35,4 +44,13 @@
   to {
     transform: rotate(360deg);
   }
+}*/
+
+.Background{
+  background-image: url("./assets/Images/fondo.png");
+  height: 100vh;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
 }
+

@@ -1,0 +1,10 @@
+.ButtonSize{
+    background: #45B69C;
+    border-radius: 8px;
+    font-size: 16px;
+    color: #ffffff;
+    padding: 0.6em 1.2em;;
+    border: none;
+    font-weight: bold;
+    margin: 1em 0.6em;
+}

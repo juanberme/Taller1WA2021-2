@@ -1,0 +1,17 @@
+.SearchInput{
+    background: #F4F3F3;
+    border: none;
+    padding: 0.8em 2em;
+    border-radius: 8px;
+    width: 60%;
+    height: 20px;
+    font-size: 14px;
+}
+
+.seachSpace{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-top: 15em;
+}

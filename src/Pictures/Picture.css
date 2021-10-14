@@ -1,0 +1,14 @@
+.PictureContainer{
+    width: 20em;
+    height: 20em;
+    background: black;
+    margin: 10px;
+    border-radius: 2.5%;
+}
+
+.PictureSection{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}

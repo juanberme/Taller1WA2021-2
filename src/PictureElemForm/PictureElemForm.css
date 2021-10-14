@@ -1,0 +1,12 @@
+.PictureElemForm label{
+    display: block;
+    margin-bottom: 20px;
+}
+
+.PictureElemForm input {
+    display: block;
+}
+
+.PictureElemForm__error{
+    color: red;
+}
