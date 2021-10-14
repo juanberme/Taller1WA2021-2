@@ -1,0 +1,23 @@
+{
+  "files": {
+    "main.css": "/Taller1WA2021-2/static/css/main.eacea283.chunk.css",
+    "main.js": "/Taller1WA2021-2/static/js/main.84410104.chunk.js",
+    "main.js.map": "/Taller1WA2021-2/static/js/main.84410104.chunk.js.map",
+    "runtime-main.js": "/Taller1WA2021-2/static/js/runtime-main.5be5a7ac.js",
+    "runtime-main.js.map": "/Taller1WA2021-2/static/js/runtime-main.5be5a7ac.js.map",
+    "static/js/2.77eebb48.chunk.js": "/Taller1WA2021-2/static/js/2.77eebb48.chunk.js",
+    "static/js/2.77eebb48.chunk.js.map": "/Taller1WA2021-2/static/js/2.77eebb48.chunk.js.map",
+    "static/js/3.15c74127.chunk.js": "/Taller1WA2021-2/static/js/3.15c74127.chunk.js",
+    "static/js/3.15c74127.chunk.js.map": "/Taller1WA2021-2/static/js/3.15c74127.chunk.js.map",
+    "index.html": "/Taller1WA2021-2/index.html",
+    "static/css/main.eacea283.chunk.css.map": "/Taller1WA2021-2/static/css/main.eacea283.chunk.css.map",
+    "static/js/2.77eebb48.chunk.js.LICENSE.txt": "/Taller1WA2021-2/static/js/2.77eebb48.chunk.js.LICENSE.txt",
+    "static/media/App.css": "/Taller1WA2021-2/static/media/fondo.8a6603fd.png"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.5be5a7ac.js",
+    "static/js/2.77eebb48.chunk.js",
+    "static/css/main.eacea283.chunk.css",
+    "static/js/main.84410104.chunk.js"
+  ]
+}
