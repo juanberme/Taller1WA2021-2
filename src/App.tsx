@@ -5,6 +5,8 @@ import { Button } from './Button/Button';
 import { Search } from './Search/Search';
 import { Pictures, PicturesProps } from './Pictures/Pictures';
 import PictureElemForm from './PictureElemForm/PictureElemForm';
+import { HashRouter, Route } from 'react-router-dom';
+import {Link} from './Link/Link';
 
 type PicturesElemArray = {
   id: number;
@@ -48,6 +50,10 @@ function App() {
 
   const [PicturesElem, setPicturesElem ] = React.useState<PicturesElemArray[]>([]);
 
+  const [formType, setFormType] = React.useState<'create' | 'edit'>('create');
+
+  const [editId, setEditId] = React.useState<number | null>(null);
+
   const handleCreate = (newPicturesElem: {PictureLikes: number, PictureTags: string, PictureDate: string;}) => {
     console.log('nuevo Elemento', newPicturesElem);
 
@@ -82,21 +88,52 @@ function App() {
     setPicturesElem(PicturesElemCopy)
   }
 
+  const handleBeginEdit = (editId: number) =>{
+    setEditId(editId);
+    console.log(editId);
+    setFormType('edit');
+  }
+
+  const handleEdit = (editIdd: number, editPicturesElem: {
+      PictureLikes: number;
+      PictureTags: string;
+    }) => {
+      
+      const newElemCopy = PicturesElem.slice();
+      const editIndex = PicturesElem.findIndex((elem) =>{
+        if(elem.id === editIdd){
+          return true;
+        }else{
+          return false;
+        }
+      });
+      newElemCopy[editIndex] = {
+        ...PicturesElem[editIndex],
+        ...editPicturesElem
+      }
+
+      setPicturesElem(newElemCopy);
+
+    }
+
   return (
+    <HashRouter>
     <div className="landingPage">
         <div className="Background">
         <div className="ButtonSpace">
-          <Button buttonName="Ver albumes"></Button>
-          <Button buttonName="Iniciar sesión"></Button>
+          <Button buttonName="Ver albumes" link='/list'></Button>
+          <Button buttonName="Iniciar sesión" link='/forms'></Button>
         </div>
         <div className="seachSpace">
           <Search></Search>
-          <Button buttonName='Buscar'></Button>
+          
         </div>
       </div>
       <div className="tagSection">
         <h2>Etiquetas</h2>
       </div>
+      
+      <Route path='/list'>
       <div className="PictureSection">
           {PicturesElem.map((elem) => {
             return <Pictures key={elem.id}
@@ -105,15 +142,22 @@ function App() {
             PictureLikes={elem.PictureLikes}
             PictureTags={elem.PictureTags}
             PictureDate={elem.PictureDate}
-            onDelete={handleDelete}/>
+            onDelete={handleDelete}
+            onEdit={handleBeginEdit}/>
           })}
       </div>
-      
-      <PictureElemForm 
-      type='create'
-      onCreate={handleCreate}
+      </Route>
+
+      <Route path='/forms'>
+        <PictureElemForm 
+          editId={editId}
+          type= {formType}
+          onCreate={handleCreate}
+          onEdit={handleEdit}
       />
+      </Route>
     </div>
+    </HashRouter>
   );
 }
 

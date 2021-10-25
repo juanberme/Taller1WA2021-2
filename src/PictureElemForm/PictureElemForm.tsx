@@ -3,11 +3,13 @@ import './PictureElemForm.css';
 import { PicturesProps } from "../Pictures/Pictures";
 
 interface PictureElemFormProps {
+    editId: number|null;
     type: 'create' | 'edit';
     onCreate: (newPicturesElem: {PictureLikes: number, PictureTags: string, PictureDate: string;}) => void; //permite crear un nuevo elemento
+    onEdit: (id: number, editPicturesElem: {PictureLikes: number, PictureTags: string;}) => void; //permite crear un nuevo elemento
 }
 
-const PictureElemForm: React.FC <PictureElemFormProps> = ({ type, onCreate }) => {
+const PictureElemForm: React.FC <PictureElemFormProps> = ({ editId, type, onCreate, onEdit }) => {
 
     //estado para saber si el usuario intento enviar el forms
     const [formsSubmitted, setFormsSubmitted] = React.useState(false);
@@ -42,20 +44,29 @@ const PictureElemForm: React.FC <PictureElemFormProps> = ({ type, onCreate }) =>
     const handleSubmit: React.FormEventHandler<HTMLFormElement> = (event) =>{
         event.preventDefault();
         setFormsSubmitted(true);//cambia el estado del forms a true
-        if(isTagValid && isUrlValid){
+        if(type === 'create' && isTagValid && isUrlValid){
             console.log('valid');//cuando los tags y el url cumple con la condicion
             onCreate({
                 PictureLikes: parseInt(like),
                 PictureTags: tag,
                 PictureDate: '22/06/2001'
             });
-        }else{
+            setLike('');
+            setTag('');
+            setUrl('');
+            setFormsSubmitted(false);
+        } else if(type === 'edit' && isTagValid && isUrlValid){
+            onEdit(editId!, {PictureTags: tag, PictureLikes: parseInt(like)});
+        }
+        else{
             console.log('invalid');//cuando los tags y el url NO cumple con la condicion
         }
     }
 
+    
+
     return (<form className='PictureElemForm' onSubmit={handleSubmit}>
-        <h2>{type === 'create' ? 'Agrega' : 'Edita'} las fotos que quieras</h2>
+        <h2>{type === 'create' ? 'Agrega' : 'Edita'} las fotos que quieras {editId} </h2>
 
         <label htmlFor='tag'>
             Tag
