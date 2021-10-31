@@ -1,34 +1,55 @@
+import { type } from "os";
 import React from "react";
+import {Link as Rlink, useHistory} from 'react-router-dom';
 import './Picture.css';
 
 export interface PicturesProps{
-    //PictureImg: string;
+    PictureImg: string;
     id: number;
     PictureLikes: number;
     PictureTags: string;
     PictureDate: string;
-    //<img className="PictureContainer__Img" src="./assets/Images/fondo.png"/>
-    onDelete: (id: number) => void;
-    onEdit: (id: number) => void;
+    type: 'edit'|'detail';
+    onDelete?: (id: number) => void;
+    onEdit?: (id: number) => void;
 }
 
 export const Pictures: React.FC<PicturesProps> = (props) =>{
 
+    const history = useHistory();
+
     const handleDelete: React.MouseEventHandler<HTMLButtonElement> = () =>{
         console.log('delete');
-        props.onDelete(props.id);
+        //para que no sea obligatorio mostrarlo
+        if(props.onDelete){
+            props.onDelete(props.id);
+        }
     }
 
     const handleEdit: React.MouseEventHandler<HTMLButtonElement> = () =>{
         console.log('edit');
-        props.onEdit(props.id);
+        //para que no sea obligatorio mostrarlo
+        if(props.onEdit){
+            props.onEdit(props.id);
+        }
+    }
+
+    const handleDetails :React.MouseEventHandler<HTMLButtonElement> = () =>{
+        console.log('detailss');
+        history.push(`/details/${props.id}`);
     }
 
     return (
-        <div className="PictureContainer">
+        <div>
             <h1>{props.PictureTags}</h1>
-            <button onClick={handleDelete}>Delete</button>
-            <button onClick={handleEdit}>Edit</button>
+            <img src={props.PictureImg} className='PicImg' alt=''></img>
+            <div className="PictureContainer">
+                {props.type === 'edit' && <>
+                    {props.onDelete && <button className='PictureButton' onClick={handleDelete}>Delete</button>}
+                    {props.onEdit && <button className='PictureButton' onClick={handleEdit}>Edit</button>}
+                    <button className='PictureButton' onClick={handleDetails}>View</button>
+                </>}
+            </div>
         </div>
     );
 }

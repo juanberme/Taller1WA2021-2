@@ -1,15 +1,18 @@
 import React from "react";
 import './PictureElemForm.css';
 import { PicturesProps } from "../Pictures/Pictures";
+import { useHistory } from "react-router";
 
 interface PictureElemFormProps {
     editId: number|null;
     type: 'create' | 'edit';
-    onCreate: (newPicturesElem: {PictureLikes: number, PictureTags: string, PictureDate: string;}) => void; //permite crear un nuevo elemento
-    onEdit: (id: number, editPicturesElem: {PictureLikes: number, PictureTags: string;}) => void; //permite crear un nuevo elemento
+    onCreate: (newPicturesElem: {PictureLikes: number, PictureTags: string, PictureDate: string, PictureImg: string;}) => void; //permite crear un nuevo elemento
+    onEdit: (id: number, editPicturesElem: {PictureLikes: number, PictureTags: string;}) => void; //permite editar un nuevo elemento
 }
 
 const PictureElemForm: React.FC <PictureElemFormProps> = ({ editId, type, onCreate, onEdit }) => {
+
+    const history = useHistory();
 
     //estado para saber si el usuario intento enviar el forms
     const [formsSubmitted, setFormsSubmitted] = React.useState(false);
@@ -26,8 +29,14 @@ const PictureElemForm: React.FC <PictureElemFormProps> = ({ editId, type, onCrea
         setUrl(event.target.value);
     }
 
+    const [date, setDate] = React.useState(' ');
+    const handleDateChange: React.ChangeEventHandler<HTMLInputElement> = (event) =>{
+        setDate(event.target.value);
+    }
+
     //Para guardar la info de los likes
     const [ like, setLike ] = React.useState('');
+
     const handleLikeChange: React.ChangeEventHandler<HTMLInputElement> = (event) =>{
         const value = event.target.value;
         const allDigitsRegExp = /^\d*$/; //permite que solo se pongan números en el input
@@ -36,6 +45,7 @@ const PictureElemForm: React.FC <PictureElemFormProps> = ({ editId, type, onCrea
         }
     }
 
+    //Los requisitos para enviar el formulario
     const isTagValid = tag.length >= 5;
     const isUrlValid = url.length >= 10;
     const isLikeValid = parseInt(like) > 100;
@@ -49,12 +59,15 @@ const PictureElemForm: React.FC <PictureElemFormProps> = ({ editId, type, onCrea
             onCreate({
                 PictureLikes: parseInt(like),
                 PictureTags: tag,
-                PictureDate: '22/06/2001'
+                PictureDate: date,
+                PictureImg: url
             });
             setLike('');
             setTag('');
             setUrl('');
             setFormsSubmitted(false);
+            //verficiar si es necesario
+            history.push('/list');
         } else if(type === 'edit' && isTagValid && isUrlValid){
             onEdit(editId!, {PictureTags: tag, PictureLikes: parseInt(like)});
         }
@@ -63,8 +76,6 @@ const PictureElemForm: React.FC <PictureElemFormProps> = ({ editId, type, onCrea
         }
     }
 
-    
-
     return (<form className='PictureElemForm' onSubmit={handleSubmit}>
         <h2>{type === 'create' ? 'Agrega' : 'Edita'} las fotos que quieras {editId} </h2>
 
@@ -72,33 +83,38 @@ const PictureElemForm: React.FC <PictureElemFormProps> = ({ editId, type, onCrea
             Tag
             <input name='tag' type='text' 
             onChange={handleTagChange}
-            value={tag} /> 
+            value={tag} 
+            className='InputForms'/> 
             {(formsSubmitted && !isTagValid) && <p className='PictureElemForm__error'>The tag must be at least 5 characters</p>}
         </label>
        
         {type === 'create' && <label>
             Date
-            <input type='date'></input>
+            <input type='date' 
+            onChange={handleDateChange}
+            value={date}
+            className='InputForms'></input>
         </label>}
 
         <label htmlFor='like'>
             Likes
             <input name='like' type='text' 
             onChange={handleLikeChange}
-            value={like} /> 
+            value={like} className='InputForms' /> 
             {(formsSubmitted && !isLikeValid) && <p className='PictureElemForm__error'>You must have at least 100 likes</p>} 
         </label>
-
 
         <label>
             Image URL
             <input type='text'
             onChange={handleUrlChange}
-            value={url}/>
+            value={url}
+            className='InputForms'
+            placeholder=''/>
             {(formsSubmitted && !isUrlValid) && <p className='PictureElemForm__error'>The Url must be at least 5 characters</p>}
         </label>
 
-        <button>
+        <button className='ButtonForms'>
             {type === 'create' ? 'Agregar' : 'Editar'} 
         </button>
         

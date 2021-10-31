@@ -1,15 +1,39 @@
 .PictureContainer{
-    width: 20em;
-    height: 20em;
-    background: black;
-    margin: 10px;
-    border-radius: 2.5%;
-    color: white;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 3em;
+}
+
+.PictureButton{
+    background: #A0A4B8;
+    border-radius: 8px;
+    font-size: 16px;
+    color: #ffffff;
+    padding: 0.6em 1.2em;;
+    border: none;
+    font-weight: bold;
+    margin: 0.8em 0em;
+    width: 90px;
+}
+
+.PictureButton:hover{
+    background: #45B69C;
+}
+
+.PicImg{
+    width: 300px;
+    height: 300px;
+    border-radius: 10px;
 }
 
 .PictureSection{
-    display: flex;
+    /*display: flex;
     flex-direction: row;
     justify-content: space-around;
-    flex-wrap: wrap;
+    flex-wrap: wrap;*/
+    display: grid;
+    grid-template-columns: 300px repeat(3, 1fr);
+    grid-column-gap: 2em;
+    margin: 3em;
 }

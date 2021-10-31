@@ -1,0 +1,27 @@
+.TagTitle{
+    margin: 0.8em 3em;
+    color: #45B69C;
+    font-size: 24;
+  }
+
+.TagButton{
+    background: #A0A4B8;
+    padding: 0.7em 1.5em;
+    border-radius: 50px;
+    color: white;
+    font-weight: bold;
+    font-size: 16px;
+    border:none;
+    margin: 0.3em;
+}
+
+.tagSection{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.TagButton:hover{
+    background: #45B69C;
+}

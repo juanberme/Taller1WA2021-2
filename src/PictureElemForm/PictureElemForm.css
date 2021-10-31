@@ -1,3 +1,43 @@
+.PictureElemForm{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: white;
+    width: 600px;
+    padding: 3em;
+    border-radius: 10px;
+}
+
+.formsContainer{
+    margin: 4em;
+}
+
+.InputForms{
+    width: 40vw;
+    padding: 0.8em;
+    margin-top: 0.6em;
+    border-radius: 10px;
+    border: none;
+    background: #F4F3F3;
+}
+
+.ButtonForms{
+    width: 15em;
+    padding: 0.8em;
+    border-radius: 10px;
+    border: none;
+    background: #45B69C;
+    color: white;
+    font-weight: bold;
+    margin-top: 1em;
+}
+
+.formsPage{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
 .PictureElemForm label{
     display: block;
     margin-bottom: 20px;

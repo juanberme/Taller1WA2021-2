@@ -1,0 +1,6 @@
+.AlbumSection{
+    display: grid;
+    grid-template-columns: 300px repeat(3, 1fr);
+    grid-column-gap: 2em;
+    margin: 3em;
+}
