@@ -4,4 +4,5 @@ export type PicturesElemArray = {
     PictureLikes: number;
     PictureTags: string;
     PictureDate: string;
+    AlbumId: number;
   }

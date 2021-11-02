@@ -1,6 +1,5 @@
-import { type } from "os";
 import React from "react";
-import {Link as Rlink, useHistory} from 'react-router-dom';
+import {useHistory} from 'react-router-dom';
 import './Picture.css';
 
 export interface PicturesProps{

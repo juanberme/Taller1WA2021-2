@@ -4,6 +4,9 @@ export type AlbumElemArray = {
     //AlbumTotalPics: number;
     AlbumTopic: string;
     AlbumName: string;
+
+    //esto se pone para el many
+    PhotographerId: number;
     /*idPics: number;
-    PhotographerId: number;*/
+    */
 }

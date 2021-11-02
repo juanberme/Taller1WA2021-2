@@ -35,7 +35,7 @@ export const Album: React.FC<AlbumProps> = (props) => {
 
     const handleAlbumDetails: React.MouseEventHandler<HTMLButtonElement> = () => {
         console.log('details');
-        history.push(`/details/${props.AlbumId}`);
+        history.push(`/AlbumDetails/${props.AlbumId}`);
     }
 
 

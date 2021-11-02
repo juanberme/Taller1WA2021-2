@@ -1,12 +1,13 @@
-import React, { useState } from "react";
-import { useHistory } from "react-router";
+import React from "react";
+import { PhotographerElemArray } from "../PhotographerElemObj/PhotographerElemObj";
 import './AlbumElemForms.css';
 
 interface AlbumElemFormsProps {
     editId: number | null;
     type: 'create' | 'edit';
-    onCreate: (newAlbumElem: {AlbumCover: string, AlbumTopic: string, AlbumName: string}) => void; //permite crear un nuevo elemento
+    onCreate: (newAlbumElem: {AlbumCover: string, AlbumTopic: string, AlbumName: string, PhotographerId: number}) => void; //permite crear un nuevo elemento
     onEdit: (id: number, editAlbumElem: {AlbumCover: string, AlbumTopic: string, AlbumName: string}) => void; //permite editar un nuevo elemento
+    Photographers: PhotographerElemArray[];
 }
 
 const AlbumElemForms: React.FC <AlbumElemFormsProps> = (props) => {
@@ -22,12 +23,6 @@ const AlbumElemForms: React.FC <AlbumElemFormsProps> = (props) => {
         setAlbumCover(event.target.value);
     }
 
-    //Para guardar la cantidad de fotos
-    /*const [AlbumTotalPics, setAlbumTotalPics] = React.useState(' ');
-    const HandleAlbumTotalPicsChange: React.ChangeEventHandler<HTMLInputElement> = (event) => {
-        setAlbumTotalPics(event.target.value);
-    }*/
-
     //Para guardar el tema del album
     const [AlbumTopicState, setAlbumTopic] = React.useState(' ');
     const HandleAlbumTopicChange: React.ChangeEventHandler<HTMLInputElement> = (event) => {
@@ -37,6 +32,13 @@ const AlbumElemForms: React.FC <AlbumElemFormsProps> = (props) => {
     const [AlbumNameState, setAlbumName] = React.useState(' ');
     const HandleAlbumNameChange: React.ChangeEventHandler<HTMLInputElement> = (event) =>{
         setAlbumName(event.target.value);
+    }
+
+    //Para guardar la cantidad de fotos
+    const [Photographer, setPhotographer] = React.useState(0);
+    const HandlePhotographerChange: React.ChangeEventHandler<HTMLSelectElement> = (event) => {
+        console.log(event.target.value);
+        setPhotographer(parseFloat(event.target.value));
     }
 
     const isAlbumCoverValid = AlbumCoverState.length >= 10;
@@ -51,7 +53,8 @@ const AlbumElemForms: React.FC <AlbumElemFormsProps> = (props) => {
             props.onCreate({
                 AlbumCover: AlbumCoverState,
                 AlbumTopic: AlbumTopicState,
-                AlbumName: AlbumNameState
+                AlbumName: AlbumNameState,
+                PhotographerId: Photographer
             });
             setAlbumCover('');
             setAlbumName('');
@@ -90,6 +93,21 @@ const AlbumElemForms: React.FC <AlbumElemFormsProps> = (props) => {
             onChange={HandleAlbumNameChange}
             value={AlbumNameState}
             className='InputForms'/>
+            {(albumFormsSubmitted && !isAlbumNameValid) && <p className='PictureElemForm__error'> The Name should have at least 5 characters</p>}
+        </label>
+
+        <label htmlFor='albumName'>
+           Photographer Name
+            <select
+            onChange={HandlePhotographerChange}
+            value={Photographer}>
+                {props.Photographers.map(photographer => {
+                    return <option 
+                    key={photographer.PhotographerId}
+                    value={photographer.PhotographerId}
+                    >{photographer.PhotographerName}</option>
+                })}
+            </select>
             {(albumFormsSubmitted && !isAlbumNameValid) && <p className='PictureElemForm__error'> The Name should have at least 5 characters</p>}
         </label>
 

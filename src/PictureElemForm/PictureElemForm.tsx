@@ -1,16 +1,18 @@
 import React from "react";
 import './PictureElemForm.css';
-import { PicturesProps } from "../Pictures/Pictures";
 import { useHistory } from "react-router";
+import { AlbumElemArray } from "../AlbumElemObj/AlbumElemObj";
+import { isPropertySignature } from "typescript";
 
 interface PictureElemFormProps {
     editId: number|null;
     type: 'create' | 'edit';
-    onCreate: (newPicturesElem: {PictureLikes: number, PictureTags: string, PictureDate: string, PictureImg: string;}) => void; //permite crear un nuevo elemento
+    onCreate: (newPicturesElem: {PictureLikes: number, PictureTags: string, PictureDate: string, PictureImg: string, AlbumId: number;}) => void; //permite crear un nuevo elemento
     onEdit: (id: number, editPicturesElem: {PictureLikes: number, PictureTags: string;}) => void; //permite editar un nuevo elemento
+    Albums: AlbumElemArray[];
 }
 
-const PictureElemForm: React.FC <PictureElemFormProps> = ({ editId, type, onCreate, onEdit }) => {
+const PictureElemForm: React.FC <PictureElemFormProps> = ({ editId, type, onCreate, onEdit, Albums }) => {
 
     const history = useHistory();
 
@@ -29,9 +31,17 @@ const PictureElemForm: React.FC <PictureElemFormProps> = ({ editId, type, onCrea
         setUrl(event.target.value);
     }
 
+    //Para guardar la info de la fecha
     const [date, setDate] = React.useState(' ');
     const handleDateChange: React.ChangeEventHandler<HTMLInputElement> = (event) =>{
         setDate(event.target.value);
+    }
+
+    //Para guardar la info del id del album
+    const [album, setAlbum] = React.useState(0);
+    const handleAlbumChange: React.ChangeEventHandler<HTMLSelectElement> = (event) =>{
+        console.log(event.target.value);
+        setAlbum(parseFloat(event.target.value));
     }
 
     //Para guardar la info de los likes
@@ -60,11 +70,13 @@ const PictureElemForm: React.FC <PictureElemFormProps> = ({ editId, type, onCrea
                 PictureLikes: parseInt(like),
                 PictureTags: tag,
                 PictureDate: date,
-                PictureImg: url
+                PictureImg: url, 
+                AlbumId: album
             });
             setLike('');
             setTag('');
             setUrl('');
+            setAlbum(0);
             setFormsSubmitted(false);
             //verficiar si es necesario
             history.push('/list');
@@ -112,6 +124,20 @@ const PictureElemForm: React.FC <PictureElemFormProps> = ({ editId, type, onCrea
             className='InputForms'
             placeholder=''/>
             {(formsSubmitted && !isUrlValid) && <p className='PictureElemForm__error'>The Url must be at least 5 characters</p>}
+        </label>
+
+        <label>
+            Album 
+            <select
+            onChange={handleAlbumChange}
+            value={album}>
+                {Albums.map(album => {
+                    return <option 
+                    key={album.AlbumId}
+                    value={album.AlbumId}
+                    >{album.AlbumName}</option>
+                })}
+            </select>
         </label>
 
         <button className='ButtonForms'>

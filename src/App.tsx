@@ -1,20 +1,22 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 import { Button } from './Button/Button';
 import { Search } from './Search/Search';
-import { Pictures, PicturesProps } from './Pictures/Pictures';
+import { Pictures} from './Pictures/Pictures';
 import PictureElemForm from './PictureElemForm/PictureElemForm';
 import { HashRouter, Route, Switch, Redirect } from 'react-router-dom';
-import {Link} from './Link/Link';
 import PictureDetails from './PictureDetails/PictureDetails';
 import Page404 from './Page404/Page404';
 import { PicturesElemArray } from './PictureElemObj/PictureElemObj';
 import Tag from './Tag/Tag';
-import PicPrueba from './PicPrueba/PicPrueba';
 import AlbumElemForms from './AlbumElemForms/AlbumElemForms';
 import { AlbumElemArray } from './AlbumElemObj/AlbumElemObj';
 import { Album } from './Album/Album';
+import { PhotographerElemArray } from './PhotographerElemObj/PhotographerElemObj';
+import PhotographerElemForms from './PhotographerElemForms/PhotographerElemForms';
+import { Photographer } from './Photographer/Photographer';
+import AlbumDetails from './AlbumDetails/AlbumDetails';
+import PhotographerDetails from './PhotographerDetails/PhotographerDetails';
 
 
 function App() {
@@ -25,42 +27,48 @@ function App() {
       PictureImg: process.env.PUBLIC_URL + '/images/pexels-alex-kozlov-9291817.jpg',
       PictureLikes: 211,
       PictureTags: 'Rockstar',
-      PictureDate: '27/10/2021'
+      PictureDate: '27/10/2021',
+      AlbumId: 2
     },
     {
       id: 1,
       PictureImg: process.env.PUBLIC_URL + '/images/pexels-laura-tancredi-7078025.jpg',
       PictureLikes: 326,
       PictureTags: 'jaja',
-      PictureDate: '16/9/2001'
+      PictureDate: '16/9/2001',
+      AlbumId: 3
     },
     {
       id: 2,
       PictureImg: process.env.PUBLIC_URL + '/images/pexels-anna-nekrashevich-6603481.jpg',
       PictureLikes: 534,
       PictureTags: 'pepe',
-      PictureDate: '9/03/2000'
+      PictureDate: '9/03/2000',
+      AlbumId: 2
     },
     {
       id: 3,
       PictureImg: process.env.PUBLIC_URL + '/images/pexels-jill-burrow-6069745.jpg',
       PictureLikes: 526,
       PictureTags: 'Colombia',
-      PictureDate: '10/9/2001'
+      PictureDate: '10/9/2001',
+      AlbumId: 2
     },
     {
       id: 4,
       PictureImg: process.env.PUBLIC_URL + '/images/pexels-ketut-subiyanto-4474059.jpg',
       PictureLikes: 453,
       PictureTags: 'Palmira',
-      PictureDate: '17/01/2002'
+      PictureDate: '17/01/2002',
+      AlbumId: 1
     },
     {
       id: 5,
       PictureImg: process.env.PUBLIC_URL + '/images/pexels-maria-orlova-4916259.jpg',
       PictureLikes: 236,
       PictureTags: 'BErlein',
-      PictureDate: '17/01/2002'
+      PictureDate: '17/01/2002',
+      AlbumId: 1
     },
     
 ]);
@@ -69,7 +77,7 @@ function App() {
 
   const [editId, setEditId] = React.useState<number | null>(null);
 
-  const handleCreate = (newPicturesElem: {PictureLikes: number, PictureTags: string, PictureDate: string, PictureImg: string;}) => {
+  const handleCreate = (newPicturesElem: {PictureLikes: number, PictureTags: string, PictureDate: string, PictureImg: string, AlbumId: number;}) => {
     console.log('nuevo Elemento', newPicturesElem);
 
     //creamos un nuevo arreglo
@@ -81,7 +89,8 @@ function App() {
         PictureImg: newPicturesElem.PictureImg,
         PictureLikes: newPicturesElem.PictureLikes,
         PictureTags: newPicturesElem.PictureTags,
-        PictureDate:newPicturesElem.PictureDate
+        PictureDate:newPicturesElem.PictureDate,
+        AlbumId: newPicturesElem.AlbumId
       }
     ];
 
@@ -90,9 +99,6 @@ function App() {
 
   const handleDelete = (deleteId: number) =>{
     console.log('delete');
-    /*const PicturesElemCopy = PicturesElem.slice();
-    PicturesElemCopy.splice(0,1);
-    setPicturesElem(PicturesElemCopy);*/
 
     const PicturesElemCopy = PicturesElem.filter((elem) =>{
       if(elem.id === deleteId){
@@ -139,33 +145,38 @@ function App() {
     const [AlbumElem, setAlbumElem] = React.useState<AlbumElemArray[]>([
       {
         AlbumId: 0,
+        PhotographerId: 1,
         AlbumCover: process.env.PUBLIC_URL + '/images/pexels-jill-burrow-6069745.jpg',
         AlbumTopic: 'Comida',
         AlbumName: 'Arabe'
       },
       {
         AlbumId: 1,
+        PhotographerId: 1,
         AlbumCover: process.env.PUBLIC_URL + '/images/pexels-laura-tancredi-7078025.jpg',
         AlbumTopic: 'Latino',
         AlbumName: 'Cultura Colombiana'
       },
       {
         AlbumId: 2,
+        PhotographerId: 1,
         AlbumCover: process.env.PUBLIC_URL + '/images/pexels-alex-kozlov-9291817.jpg',
-        AlbumTopic: 'Latino',
-        AlbumName: 'Cultura Colombiana'
+        AlbumTopic: 'Culturas',
+        AlbumName: 'Alemana'
       },
       {
         AlbumId: 3,
+        PhotographerId: 0,
         AlbumCover: process.env.PUBLIC_URL + '/images/pexels-laura-tancredi-7078025.jpg',
-        AlbumTopic: 'Latino',
-        AlbumName: 'Cultura Colombiana'
+        AlbumTopic: 'Viajes',
+        AlbumName: 'Gran cañon'
       },
       {
         AlbumId: 4,
+        PhotographerId: 0,
         AlbumCover: process.env.PUBLIC_URL + '/images/pexels-maria-orlova-4916259.jpg',
-        AlbumTopic: 'Latino',
-        AlbumName: 'Cultura Colombiana'
+        AlbumTopic: 'Ciudades',
+        AlbumName: 'Medellín'
       },
     ]);
 
@@ -173,16 +184,17 @@ function App() {
 
     const [editID, setEditID] = React.useState< number | null>(null);
 
-    const handleAlbumCreate = (newAlbumElem: {AlbumCover: string, AlbumTopic: string, AlbumName: string}) => {
+    const handleAlbumCreate = (newAlbumElem: {AlbumCover: string, AlbumTopic: string, AlbumName: string, PhotographerId: number}) => {
       console.log('nuevo Album', newAlbumElem);
 
       const newAlbumArray = [
         ...AlbumElem,
         {
           AlbumId: Math.random(),
+          PhotographerId: newAlbumElem.PhotographerId,
           AlbumCover: newAlbumElem.AlbumCover,
           AlbumTopic: newAlbumElem.AlbumTopic,
-          AlbumName: newAlbumElem.AlbumName
+          AlbumName: newAlbumElem.AlbumName,
         }
       ];
       
@@ -225,6 +237,84 @@ function App() {
 
 
 
+    //Para el fotografo
+
+    const [PhotographerElem, setPhotographerElem] = React.useState<PhotographerElemArray[]>([
+      {
+        PhotographerId: 0,
+        PhotographerImg: process.env.PUBLIC_URL + '/images/pexels-laura-tancredi-7078025.jpg',
+        PhotographerSubs: 136,
+        PhotographerName: 'Juan Perez'
+      },
+      {
+        PhotographerId: 1,
+        PhotographerImg: process.env.PUBLIC_URL + '/images/pexels-alex-kozlov-9291817.jpg',
+        PhotographerSubs: 254,
+        PhotographerName: 'Mariana Sandoval'
+      },
+
+    ]);
+
+    const [PhotographerFormType, setPhotographerFormType] = React.useState<'create' | 'edit'>('create');
+    
+    const[PhotographerEditId, setPhotographerEditId] = React.useState<number | null> (null);
+
+    const handlePhotographerCreate = (newPhotographerElem: {PhotographerImg: string, PhotographerSubs: number, PhotographerName: string}) => {
+        console.log('nuevo Elemento', newPhotographerElem);
+
+        const newPhotographerArray = [
+          ...PhotographerElem, {
+            PhotographerId: Math.random(),
+            PhotographerImg: newPhotographerElem.PhotographerImg,
+            PhotographerSubs: newPhotographerElem.PhotographerSubs,
+            PhotographerName: newPhotographerElem.PhotographerName
+          }
+        ];
+
+        setPhotographerElem(newPhotographerArray);
+    }
+
+    const handlePhotographerDelete = (PhotographerDeleteId: number) => {
+      console.log('delete');
+
+      const PhotographerElemCopy = PhotographerElem.filter((elem) => {
+        if(elem.PhotographerId === PhotographerDeleteId){
+          return false;
+        }else{
+          return true;
+        }
+      });
+      setPhotographerElem(PhotographerElemCopy);
+    }
+
+    const handlePhotographerBeginEdit = (IdEdit: number) => {
+      setPhotographerEditId(IdEdit);
+      console.log(IdEdit);
+      setPhotographerFormType('edit');
+    }
+
+    const handlePhotographerEdit = (editID: number, editPhotographerElem: {PhotographerSubs: number, PhotographerName: string}) => {
+      const newPhotographerCopy = PhotographerElem.slice();
+      const PhotographerEditIndex = PhotographerElem.findIndex((elem) => {
+        if(elem.PhotographerId === editID){
+          return true;
+        }else{
+          return false;
+        }
+      });
+      newPhotographerCopy[PhotographerEditIndex] = {
+        ...PhotographerElem[editID], ...editPhotographerElem
+      }
+      setPhotographerElem(newPhotographerCopy);
+    }
+
+    /*
+
+  const [editId, setEditId] = React.useState<number | null>(null); */
+
+
+
+
   return (
     <HashRouter>
     <div className="page">
@@ -235,13 +325,15 @@ function App() {
           <div className="Background">
             <div className="ButtonContainer">
               <Button buttonName="Fotografos" link='/Photographers'></Button>
-              <Button buttonName="Fotos" link='/forms'></Button>
+              <Button buttonName="Fotos" link='/Pictures'></Button>
               <Button buttonName="Albums" link='/Albums'></Button>
             </div>
             <div className="seachSpace">
               <Search></Search>
             </div>
           </div>
+
+          forms
 
           <h2 className='TagTitle'>Etiquetas</h2>
           <div className="tagSection">
@@ -272,7 +364,7 @@ function App() {
                 PictureLikes={elem.PictureLikes}
                 PictureTags={elem.PictureTags}
                 PictureDate={elem.PictureDate}
-                type='detail'
+                type='edit'
                 onDelete={handleDelete}
                 onEdit={handleBeginEdit}/>
               })}
@@ -283,8 +375,33 @@ function App() {
           <div className='Background'>
             <div className="ButtonContainer">
               <Button buttonName="Fotografos" link='/Photographers'></Button>
-              <Button buttonName="Fotos" link='/forms'></Button>
+              <Button buttonName="Fotos" link='/Pictures'></Button>
               <Button buttonName="Albumes" link='/Albums'></Button>
+            </div>
+
+            <div className='formsPage'>
+              <div className='formsContainer'>
+                  <PhotographerElemForms
+                    editId={PhotographerEditId}
+                    type={PhotographerFormType}
+                    onCreate={handlePhotographerCreate}
+                    onEdit={handlePhotographerEdit}
+                  />
+              </div>
+            </div>
+
+            <div className='PhotographerSection'>
+                {PhotographerElem.map((elem) => {
+                  return <Photographer key={elem.PhotographerId}
+                    PhotographerId={elem.PhotographerId}
+                    PhotographerSubs={elem.PhotographerSubs}
+                    PhotographerImg={elem.PhotographerImg}
+                    PhotographerName={elem.PhotographerName}
+                    type='edit'
+                    onDelete={handlePhotographerDelete}
+                    onEdit={handlePhotographerBeginEdit}
+                  />
+                })}
             </div>
           </div>
         </Route>
@@ -293,7 +410,7 @@ function App() {
           <div className='Background'>
             <div className="ButtonContainer">
               <Button buttonName="Fotografos" link='/Photographers'></Button>
-              <Button buttonName="Fotos" link='/forms'></Button>
+              <Button buttonName="Fotos" link='/Pictures'></Button>
               <Button buttonName="Albumes" link='/Albums'></Button>
             </div>
 
@@ -304,6 +421,7 @@ function App() {
                   type={albumFormType}
                   onCreate={handleAlbumCreate}
                   onEdit={handleAlbumEdit}
+                  Photographers={PhotographerElem}
                 />
               </div>
             </div>
@@ -315,7 +433,7 @@ function App() {
                     AlbumCover={elem.AlbumCover}
                     AlbumName={elem.AlbumName}
                     AlbumTopic={elem.AlbumTopic}
-                    type='detail'
+                    type='edit'
                     onDelete={handleAlbumDelete}
                     onEdit={handleAlbumBeginEdit}
                   />
@@ -324,12 +442,12 @@ function App() {
           </div>
         </Route>
 
-          <Route path='/forms'>
+          <Route path='/Pictures'>
             
               <div className='Background'>
                 <div className="ButtonContainer">
                   <Button buttonName="Fotografos" link='/Photographers'></Button>
-                  <Button buttonName="Fotos" link='/forms'></Button>
+                  <Button buttonName="Fotos" link='/Pictures'></Button>
                   <Button buttonName="Albumes" link='/Albums'></Button>
                 </div>
                   
@@ -339,7 +457,8 @@ function App() {
                         editId={editId}
                         type= {formType}
                         onCreate={handleCreate}
-                        onEdit={handleEdit}/>
+                        onEdit={handleEdit}
+                        Albums={AlbumElem}/>
                     </div>
                   </div>
 
@@ -351,7 +470,7 @@ function App() {
                     PictureLikes={elem.PictureLikes}
                     PictureTags={elem.PictureTags}
                     PictureDate={elem.PictureDate}
-                    type='detail'
+                    type='edit'
                     onDelete={handleDelete}
                     onEdit={handleBeginEdit}/>
                     })}
@@ -368,6 +487,20 @@ function App() {
             />
           </Route>
 
+          <Route path='/AlbumDetails/:id'>
+            <AlbumDetails
+              list={AlbumElem}
+              pictures={PicturesElem}
+            />
+          </Route>
+
+          <Route path='/PhotographerDetails/:id'>
+            <PhotographerDetails 
+            list={PhotographerElem}
+            album={AlbumElem}
+            />
+          </Route>  
+            
           <Route path='/404'>
               <Page404/>
           </Route>
