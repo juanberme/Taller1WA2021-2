@@ -2,7 +2,6 @@ import React from "react";
 import { Redirect, useParams } from "react-router";
 import { Album } from "../Album/Album";
 import { AlbumElemArray } from "../AlbumElemObj/AlbumElemObj";
-import { Photographer } from "../Photographer/Photographer";
 import { PhotographerElemArray } from "../PhotographerElemObj/PhotographerElemObj";
 
 interface PhotographerDetailsProps {

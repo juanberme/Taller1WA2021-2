@@ -17,9 +17,19 @@ import PhotographerElemForms from './PhotographerElemForms/PhotographerElemForms
 import { Photographer } from './Photographer/Photographer';
 import AlbumDetails from './AlbumDetails/AlbumDetails';
 import PhotographerDetails from './PhotographerDetails/PhotographerDetails';
+import { TagOptions } from './Tag/TagOptions';
 
 
 function App() {
+
+  const [tagsOptions, setTagsOptions] = React.useState<TagOptions[]>([
+    {label: 'test 1'},
+    {label: 'test 2'}
+]);
+
+const handleAddTagsOptions = (newTagsOptions: TagOptions) => {
+  setTagsOptions([...tagsOptions, newTagsOptions]);
+}
 
   const [PicturesElem, setPicturesElem ] = React.useState<PicturesElemArray[]>([
     {
@@ -333,7 +343,7 @@ function App() {
             </div>
           </div>
 
-          forms
+          
 
           <h2 className='TagTitle'>Etiquetas</h2>
           <div className="tagSection">
@@ -458,7 +468,10 @@ function App() {
                         type= {formType}
                         onCreate={handleCreate}
                         onEdit={handleEdit}
-                        Albums={AlbumElem}/>
+                        Albums={AlbumElem}
+                        tagsOptions={tagsOptions}
+                        addTagsOptions={handleAddTagsOptions}
+                        />
                     </div>
                   </div>
 

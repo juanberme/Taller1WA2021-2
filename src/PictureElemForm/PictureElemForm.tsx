@@ -2,7 +2,8 @@ import React from "react";
 import './PictureElemForm.css';
 import { useHistory } from "react-router";
 import { AlbumElemArray } from "../AlbumElemObj/AlbumElemObj";
-import { isPropertySignature } from "typescript";
+import { Autocomplete, TextField } from "@mui/material";
+import { TagOptions } from "../Tag/TagOptions";
 
 interface PictureElemFormProps {
     editId: number|null;
@@ -10,9 +11,11 @@ interface PictureElemFormProps {
     onCreate: (newPicturesElem: {PictureLikes: number, PictureTags: string, PictureDate: string, PictureImg: string, AlbumId: number;}) => void; //permite crear un nuevo elemento
     onEdit: (id: number, editPicturesElem: {PictureLikes: number, PictureTags: string;}) => void; //permite editar un nuevo elemento
     Albums: AlbumElemArray[];
+    addTagsOptions: (newTagOptions: TagOptions) => void;
+    tagsOptions: TagOptions[];
 }
 
-const PictureElemForm: React.FC <PictureElemFormProps> = ({ editId, type, onCreate, onEdit, Albums }) => {
+const PictureElemForm: React.FC <PictureElemFormProps> = ({ editId, type, onCreate, onEdit, Albums, addTagsOptions, tagsOptions}) => {
 
     const history = useHistory();
 
@@ -55,6 +58,26 @@ const PictureElemForm: React.FC <PictureElemFormProps> = ({ editId, type, onCrea
         }
     }
 
+    //Para guardar varios tags
+    const [manyTags, setManyTags] = React.useState<TagOptions[]>([]);
+    const handleManyTagsChange = (
+        event: React.SyntheticEvent<Element, Event>, 
+        values: (TagOptions| string)[]
+        ) =>{
+            const transformed = values.map((value) => {
+                //si el valor es un string, quiere decir que el usuario esta agregando una nueva opcion
+                if(typeof value === 'string') {
+                    const op = {label: value}
+                    addTagsOptions(op); // agregamos la nueva opcion a la lista general de opciones
+                    return op;
+                } else {
+                    return value;
+                }
+            });
+            setManyTags(transformed);
+    }
+    
+
     //Los requisitos para enviar el formulario
     const isTagValid = tag.length >= 5;
     const isUrlValid = url.length >= 10;
@@ -66,6 +89,7 @@ const PictureElemForm: React.FC <PictureElemFormProps> = ({ editId, type, onCrea
         setFormsSubmitted(true);//cambia el estado del forms a true
         if(type === 'create' && isTagValid && isUrlValid){
             console.log('valid');//cuando los tags y el url cumple con la condicion
+            console.log(manyTags);
             onCreate({
                 PictureLikes: parseInt(like),
                 PictureTags: tag,
@@ -139,6 +163,21 @@ const PictureElemForm: React.FC <PictureElemFormProps> = ({ editId, type, onCrea
                 })}
             </select>
         </label>
+
+        <Autocomplete
+            multiple
+            freeSolo
+            disablePortal
+            id="combo-box-demo"
+            options={tagsOptions}
+            sx={{ width: 300 }}
+            renderInput={(params) => <TextField {...params} label="Tags" />}
+            onChange={handleManyTagsChange}
+            value={manyTags as any}
+            isOptionEqualToValue={(option, value) => {
+                return option.label === value.label
+            }}
+        />
 
         <button className='ButtonForms'>
             {type === 'create' ? 'Agregar' : 'Editar'} 

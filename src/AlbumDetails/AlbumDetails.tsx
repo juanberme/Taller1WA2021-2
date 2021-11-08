@@ -1,7 +1,6 @@
 import React from "react";
 import { Redirect, useParams } from "react-router";
 import { AlbumElemArray } from "../AlbumElemObj/AlbumElemObj";
-import { Photographer } from "../Photographer/Photographer";
 import { PicturesElemArray } from "../PictureElemObj/PictureElemObj";
 import { Pictures } from "../Pictures/Pictures";
 
