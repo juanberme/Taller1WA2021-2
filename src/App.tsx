@@ -4,7 +4,7 @@ import { Button } from './Button/Button';
 import { Search } from './Search/Search';
 import { Pictures} from './Pictures/Pictures';
 import PictureElemForm from './PictureElemForm/PictureElemForm';
-import { HashRouter, Route, Switch, Redirect } from 'react-router-dom';
+import { HashRouter, Route, Switch, Redirect, useHistory } from 'react-router-dom';
 import PictureDetails from './PictureDetails/PictureDetails';
 import Page404 from './Page404/Page404';
 import { PicturesElemArray } from './PictureElemObj/PictureElemObj';
@@ -21,6 +21,8 @@ import { TagOptions } from './Tag/TagOptions';
 
 
 function App() {
+
+  const history = useHistory();
 
   const [tagsOptions, setTagsOptions] = React.useState<TagOptions[]>([
     {label: 'test 1'},
@@ -148,7 +150,6 @@ const handleAddTagsOptions = (newTagsOptions: TagOptions) => {
 
   const handleBeginEdit = (editId: number) =>{
     setEditId(editId);
-    console.log(editId);
     setFormType('edit');
   }
 
@@ -171,7 +172,8 @@ const handleAddTagsOptions = (newTagsOptions: TagOptions) => {
       }
 
       setPicturesElem(newElemCopy);
-
+      setFormType('create');
+      setEditId(null);
     }
 
     // <!--<PicPrueba PicUrl={process.env.PUBLIC_URL + '/images/pexels-alex-kozlov-9291817.jpg'}></PicPrueba>-->
@@ -245,7 +247,6 @@ const handleAddTagsOptions = (newTagsOptions: TagOptions) => {
 
     const handleAlbumBeginEdit = (IdEdit: number) => {
       setEditID(IdEdit);
-      console.log(IdEdit);
       setAlbumFormType('edit');
     }
 
@@ -262,6 +263,8 @@ const handleAddTagsOptions = (newTagsOptions: TagOptions) => {
         ...AlbumElem[IdEditt], ...editAlbumElem
       }
       setAlbumElem(newAlbumCopy);
+      setAlbumFormType('create');
+      setEditID(null);
     }
 
 
@@ -318,7 +321,6 @@ const handleAddTagsOptions = (newTagsOptions: TagOptions) => {
 
     const handlePhotographerBeginEdit = (IdEdit: number) => {
       setPhotographerEditId(IdEdit);
-      console.log(IdEdit);
       setPhotographerFormType('edit');
     }
 
@@ -335,6 +337,8 @@ const handleAddTagsOptions = (newTagsOptions: TagOptions) => {
         ...PhotographerElem[editID], ...editPhotographerElem
       }
       setPhotographerElem(newPhotographerCopy);
+      setPhotographerFormType('create');
+      setPhotographerEditId(null);
     }
 
     /*
@@ -444,6 +448,7 @@ const handleAddTagsOptions = (newTagsOptions: TagOptions) => {
                   type={albumFormType}
                   onCreate={handleAlbumCreate}
                   onEdit={handleAlbumEdit}
+
                   Photographers={PhotographerElem}
                 />
               </div>

@@ -4,12 +4,14 @@ import { useHistory } from "react-router";
 import { AlbumElemArray } from "../AlbumElemObj/AlbumElemObj";
 import { Autocomplete, TextField } from "@mui/material";
 import { TagOptions } from "../Tag/TagOptions";
+import { PicturesElemArray } from "../PictureElemObj/PictureElemObj";
 
 interface PictureElemFormProps {
+    //Pictures: PicturesElemArray[];
     editId: number|null;
     type: 'create' | 'edit';
     onCreate: (newPicturesElem: {PictureLikes: number, PictureTags: TagOptions[], PictureDate: string, PictureImg: string, AlbumId: number;}) => void; //permite crear un nuevo elemento
-    onEdit: (id: number, editPicturesElem: {PictureLikes: number, PictureTags: TagOptions[];}) => void; //permite editar un nuevo elemento
+    onEdit: (id: number, editPicturesElem: {PictureLikes: number, PictureTags: TagOptions[], PictureImg: string;}) => void; //permite editar un nuevo elemento
     Albums: AlbumElemArray[];
     addTagsOptions: (newTagOptions: TagOptions) => void;
     tagsOptions: TagOptions[];
@@ -19,14 +21,12 @@ const PictureElemForm: React.FC <PictureElemFormProps> = ({ editId, type, onCrea
 
     const history = useHistory();
 
+    /*const editElem = Pictures.find((elem) => {
+        return elem.id === editId;
+    })*/
+
     //estado para saber si el usuario intento enviar el forms
     const [formsSubmitted, setFormsSubmitted] = React.useState(false);
-
-    //Para guardar la info del tag
-    /*const [ tag, setTag ] = React.useState(' ');
-    const handleTagChange: React.ChangeEventHandler<HTMLInputElement> = (event) =>{
-        setTag(event.target.value);
-    }*/
 
     //Para guardar la info del url
     const [ url, setUrl ] = React.useState(' ');
@@ -87,7 +87,7 @@ const PictureElemForm: React.FC <PictureElemFormProps> = ({ editId, type, onCrea
     const handleSubmit: React.FormEventHandler<HTMLFormElement> = (event) =>{
         event.preventDefault();
         setFormsSubmitted(true);//cambia el estado del forms a true
-        if(type === 'create' && isUrlValid){
+        if(type === 'create' && isUrlValid && isLikeValid){
             console.log('valid');//cuando los tags y el url cumple con la condicion
             console.log(manyTags);
             onCreate({
@@ -102,9 +102,11 @@ const PictureElemForm: React.FC <PictureElemFormProps> = ({ editId, type, onCrea
             setAlbum(0);
             setFormsSubmitted(false);
             //verficiar si es necesario
-            history.push('/list');
-        } else if(type === 'edit' && isUrlValid){
-            onEdit(editId!, {PictureTags: manyTags, PictureLikes: parseInt(like)});
+            history.push('/landingPage');
+        } else if(type === 'edit' && isUrlValid && isLikeValid){
+            onEdit(editId!, {PictureTags: manyTags, PictureImg: url ,PictureLikes: parseInt(like)});
+            history.push('/landingPage');
+            //type = 'create';
         }
         else{
             console.log('invalid');//cuando los tags y el url NO cumple con la condicion

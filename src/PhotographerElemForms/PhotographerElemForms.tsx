@@ -1,14 +1,17 @@
 import React from "react";
+import { useHistory } from "react-router";
 import './PhotographerElemForms.css';
 
 interface PhotographerElemFormsProps {
     editId: number | null;
     type: 'create' | 'edit';
     onCreate: (newPhotographerElem: {PhotographerImg: string, PhotographerSubs: number, PhotographerName: string;}) => void; //permite crear un nuevo elemento
-    onEdit: (id: number, editPhotographerElem: {PhotographerSubs: number, PhotographerName: string;}) => void; //permite editar un nuevo elemento 
+    onEdit: (id: number, editPhotographerElem: {PhotographerSubs: number, PhotographerImg: string ,PhotographerName: string;}) => void; //permite editar un nuevo elemento 
 } 
 
 const PhotographerElemForms: React.FC <PhotographerElemFormsProps> = (props) => {
+
+    const history = useHistory();
 
     //estado para saber si el usuario intento enviar el forms
     const [PhotographerFormsSubmitted, setPhotographerFormsSubmitted] = React.useState(false);
@@ -53,17 +56,18 @@ const PhotographerElemForms: React.FC <PhotographerElemFormsProps> = (props) => 
             setPhotographerNameState('');
             setPhotographerSubsState('');
             setPhotographerFormsSubmitted(false);
+            history.push('/landingPage');
             //verficiar si es necesario
-            
         }else if(props.type === 'edit' && isPhotgrapherImgValid && isPhotographerSubsValid && isPhotographerNameValid){
-            props.onEdit(props.editId!, {PhotographerName: PhotographerNameState, PhotographerSubs: parseInt(PhotographerSubsState)});
+            props.onEdit(props.editId!, {PhotographerName: PhotographerNameState, PhotographerImg: PhotgrapherImageState ,PhotographerSubs: parseInt(PhotographerSubsState)});
+            history.push('/landingPage');
         }else{
             console.log('invalid');//cuando los tags y el url NO cumple con la condicion
         }
     }
 
     return(<form className='PictureElemForm' onSubmit={handlePhotographerElemFormSubmitted}>
-        <h2>{props.type === 'create' ? 'Agrega' : 'Edita'} las fotos que quieras {props.editId} </h2>
+        <h2>{props.type === 'create' ? 'Agrega' : 'Edita'} los fotografos que quieras {props.editId} </h2>
 
         <label htmlFor='PhotographerImg'>
             Photographer Img

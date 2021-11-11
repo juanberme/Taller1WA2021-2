@@ -1,4 +1,5 @@
 import React from "react";
+import { useHistory } from "react-router-dom";
 import { PhotographerElemArray } from "../PhotographerElemObj/PhotographerElemObj";
 import './AlbumElemForms.css';
 
@@ -12,7 +13,7 @@ interface AlbumElemFormsProps {
 
 const AlbumElemForms: React.FC <AlbumElemFormsProps> = (props) => {
 
-    //const history = useHistory();
+    const history = useHistory();
 
     //estado para saber si el usuario intento enviar el forms
     const [albumFormsSubmitted, setAlbumFormsSubmitted] = React.useState(false);
@@ -60,14 +61,18 @@ const AlbumElemForms: React.FC <AlbumElemFormsProps> = (props) => {
             setAlbumName('');
             setAlbumTopic('');
             setAlbumFormsSubmitted(false);
+
+            history.push('/landingPage');
         } else if(props.type === 'edit' && isAlbumCoverValid && isAlbumNameValid && isAlbumTopicValid){
             props.onEdit(props.editId!, {AlbumCover: AlbumCoverState, AlbumTopic: AlbumTopicState, AlbumName: AlbumNameState});
+            history.push('/landingPage');
         }else{
             console.log('invalid');//cuando los tags y el url NO cumple con la condicion
         }
     }
 
     return (<form className='PictureElemForm' onSubmit={handleAlbumSubmit}>
+        <h2>{props.type === 'create' ? 'Agrega' : 'Edita'} los albumes que quieras {props.editId} </h2>
 
         <label htmlFor='albumCover'>
             Album Cover
