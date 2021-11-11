@@ -36,39 +36,61 @@ const handleAddTagsOptions = (newTagsOptions: TagOptions) => {
       id: 0,
       PictureImg: process.env.PUBLIC_URL + '/images/pexels-alex-kozlov-9291817.jpg',
       PictureLikes: 211,
-      PictureTags: 'Rockstar',
+      PictureTags: [
+        {label: 'streetstyle'},
+        {label: 'ciudad'},
+        {label: 'Bogotá'},
+        {label: 'Soleado'},
+      ],
       PictureDate: '27/10/2021',
       AlbumId: 2
     },
     {
       id: 1,
-      PictureImg: process.env.PUBLIC_URL + '/images/pexels-laura-tancredi-7078025.jpg',
+      PictureImg: process.env.PUBLIC_URL + '/images/nuevayork.jpg',
       PictureLikes: 326,
-      PictureTags: 'jaja',
+      PictureTags: [
+        {label: 'Nueva York'},
+        {label: 'Otoño'},
+        {label: 'Rascacielos'},
+      ],
       PictureDate: '16/9/2001',
       AlbumId: 3
     },
     {
       id: 2,
-      PictureImg: process.env.PUBLIC_URL + '/images/pexels-anna-nekrashevich-6603481.jpg',
+      PictureImg: process.env.PUBLIC_URL + '/images/trabajo.jpg',
       PictureLikes: 534,
-      PictureTags: 'pepe',
+      PictureTags: [
+        {label: 'Estudio'},
+        {label: 'Lapices'},
+        {label: 'Cafe'},
+        {label: 'Mañana'},
+      ],
       PictureDate: '9/03/2000',
       AlbumId: 2
     },
     {
       id: 3,
-      PictureImg: process.env.PUBLIC_URL + '/images/pexels-jill-burrow-6069745.jpg',
+      PictureImg: process.env.PUBLIC_URL + '/images/vino.jpg',
       PictureLikes: 526,
-      PictureTags: 'Colombia',
+      PictureTags: [
+        {label: 'Vino'},
+        {label: 'Rosado'},
+        {label: 'Aesthetic'},
+      ],
       PictureDate: '10/9/2001',
       AlbumId: 2
     },
     {
       id: 4,
-      PictureImg: process.env.PUBLIC_URL + '/images/pexels-ketut-subiyanto-4474059.jpg',
+      PictureImg: process.env.PUBLIC_URL + '/images/familia.jpg',
       PictureLikes: 453,
-      PictureTags: 'Palmira',
+      PictureTags: [
+        {label: 'Bebe'},
+        {label: 'Madre'},
+        {label: 'Hogar'},
+      ],
       PictureDate: '17/01/2002',
       AlbumId: 1
     },
@@ -76,7 +98,11 @@ const handleAddTagsOptions = (newTagsOptions: TagOptions) => {
       id: 5,
       PictureImg: process.env.PUBLIC_URL + '/images/pexels-maria-orlova-4916259.jpg',
       PictureLikes: 236,
-      PictureTags: 'BErlein',
+      PictureTags: [
+        {label: 'Palacio'},
+        {label: 'India'},
+        {label: 'Blanco'},
+      ],
       PictureDate: '17/01/2002',
       AlbumId: 1
     },
@@ -87,7 +113,7 @@ const handleAddTagsOptions = (newTagsOptions: TagOptions) => {
 
   const [editId, setEditId] = React.useState<number | null>(null);
 
-  const handleCreate = (newPicturesElem: {PictureLikes: number, PictureTags: string, PictureDate: string, PictureImg: string, AlbumId: number;}) => {
+  const handleCreate = (newPicturesElem: {PictureLikes: number, PictureTags: TagOptions[], PictureDate: string, PictureImg: string, AlbumId: number;}) => {
     console.log('nuevo Elemento', newPicturesElem);
 
     //creamos un nuevo arreglo
@@ -128,7 +154,7 @@ const handleAddTagsOptions = (newTagsOptions: TagOptions) => {
 
   const handleEdit = (editIdd: number, editPicturesElem: {
       PictureLikes: number;
-      PictureTags: string;
+      PictureTags: TagOptions[];
     }) => {
       
       const newElemCopy = PicturesElem.slice();
@@ -154,13 +180,6 @@ const handleAddTagsOptions = (newTagsOptions: TagOptions) => {
 
     const [AlbumElem, setAlbumElem] = React.useState<AlbumElemArray[]>([
       {
-        AlbumId: 0,
-        PhotographerId: 1,
-        AlbumCover: process.env.PUBLIC_URL + '/images/pexels-jill-burrow-6069745.jpg',
-        AlbumTopic: 'Comida',
-        AlbumName: 'Arabe'
-      },
-      {
         AlbumId: 1,
         PhotographerId: 1,
         AlbumCover: process.env.PUBLIC_URL + '/images/pexels-laura-tancredi-7078025.jpg',
@@ -172,14 +191,14 @@ const handleAddTagsOptions = (newTagsOptions: TagOptions) => {
         PhotographerId: 1,
         AlbumCover: process.env.PUBLIC_URL + '/images/pexels-alex-kozlov-9291817.jpg',
         AlbumTopic: 'Culturas',
-        AlbumName: 'Alemana'
+        AlbumName: 'Alemania'
       },
       {
         AlbumId: 3,
         PhotographerId: 0,
         AlbumCover: process.env.PUBLIC_URL + '/images/pexels-laura-tancredi-7078025.jpg',
         AlbumTopic: 'Viajes',
-        AlbumName: 'Gran cañon'
+        AlbumName: 'Ciudades'
       },
       {
         AlbumId: 4,
@@ -252,13 +271,13 @@ const handleAddTagsOptions = (newTagsOptions: TagOptions) => {
     const [PhotographerElem, setPhotographerElem] = React.useState<PhotographerElemArray[]>([
       {
         PhotographerId: 0,
-        PhotographerImg: process.env.PUBLIC_URL + '/images/pexels-laura-tancredi-7078025.jpg',
+        PhotographerImg: process.env.PUBLIC_URL + '/images/hombre.png',
         PhotographerSubs: 136,
         PhotographerName: 'Juan Perez'
       },
       {
         PhotographerId: 1,
-        PhotographerImg: process.env.PUBLIC_URL + '/images/pexels-alex-kozlov-9291817.jpg',
+        PhotographerImg: process.env.PUBLIC_URL + '/images/mujer.png',
         PhotographerSubs: 254,
         PhotographerName: 'Mariana Sandoval'
       },
@@ -321,9 +340,9 @@ const handleAddTagsOptions = (newTagsOptions: TagOptions) => {
     /*
 
   const [editId, setEditId] = React.useState<number | null>(null); */
+  
 
-
-
+  const totalTags = PicturesElem.map((elem) => elem.PictureTags).flat(); 
 
   return (
     <HashRouter>
@@ -333,10 +352,13 @@ const handleAddTagsOptions = (newTagsOptions: TagOptions) => {
       <Switch>
         <Route path='/landingPage'>
           <div className="Background">
-            <div className="ButtonContainer">
-              <Button buttonName="Fotografos" link='/Photographers'></Button>
-              <Button buttonName="Fotos" link='/Pictures'></Button>
-              <Button buttonName="Albums" link='/Albums'></Button>
+            <div className='ButtonSpace'>
+              <Button buttonName='Inicio' link='/landingPage'/>
+              <div className="ButtonContainer">
+                <Button buttonName="Fotografos" link='/Photographers'></Button>
+                <Button buttonName="Fotos" link='/Pictures'></Button>
+                <Button buttonName="Albumes" link='/Albums'></Button>
+              </div>
             </div>
             <div className="seachSpace">
               <Search></Search>
@@ -347,24 +369,9 @@ const handleAddTagsOptions = (newTagsOptions: TagOptions) => {
 
           <h2 className='TagTitle'>Etiquetas</h2>
           <div className="tagSection">
-            <Tag TagName='Paisajes'></Tag>
-            <Tag TagName='Centro Comercial'></Tag>
-            <Tag TagName='Paz'></Tag>
-            <Tag TagName='Animales'></Tag>
-            <Tag TagName='Electrodomésticos'></Tag>
-            <Tag TagName='Cali'></Tag>
-            <Tag TagName='Paisaje canadiense'></Tag>
-            <Tag TagName='Peces'></Tag>
-            <Tag TagName='Halloween'></Tag>
-            <Tag TagName='Navidad'></Tag>
-            <Tag TagName='Matrimonio'></Tag>
-            <Tag TagName='Cultura colombiana'></Tag>
-            <Tag TagName='Tropical'></Tag>
-            <Tag TagName='Oceano'></Tag>
-            <Tag TagName='selva'></Tag>
-            <Tag TagName='Repostería'></Tag>
-            <Tag TagName='Pasteles'></Tag>
-            <Tag TagName='Calabaza'></Tag>
+            {totalTags.map((elem, index) => {
+              return <Tag key={elem.label + index} TagName={elem.label}></Tag>
+            })}
           </div>
           <div className="PictureSection">
               {PicturesElem.map((elem) => {
@@ -374,7 +381,7 @@ const handleAddTagsOptions = (newTagsOptions: TagOptions) => {
                 PictureLikes={elem.PictureLikes}
                 PictureTags={elem.PictureTags}
                 PictureDate={elem.PictureDate}
-                type='edit'
+                type='detail'
                 onDelete={handleDelete}
                 onEdit={handleBeginEdit}/>
               })}
@@ -383,11 +390,14 @@ const handleAddTagsOptions = (newTagsOptions: TagOptions) => {
 
         <Route path='/Photographers'>
           <div className='Background'>
-            <div className="ButtonContainer">
-              <Button buttonName="Fotografos" link='/Photographers'></Button>
-              <Button buttonName="Fotos" link='/Pictures'></Button>
-              <Button buttonName="Albumes" link='/Albums'></Button>
-            </div>
+          <div className='ButtonSpace'>
+            <Button buttonName='Inicio' link='/landingPage'/>
+              <div className="ButtonContainer">
+                <Button buttonName="Fotografos" link='/Photographers'></Button>
+                <Button buttonName="Fotos" link='/Pictures'></Button>
+                <Button buttonName="Albumes" link='/Albums'></Button>
+              </div>
+          </div>
 
             <div className='formsPage'>
               <div className='formsContainer'>
@@ -418,11 +428,14 @@ const handleAddTagsOptions = (newTagsOptions: TagOptions) => {
 
         <Route path='/Albums'>
           <div className='Background'>
-            <div className="ButtonContainer">
-              <Button buttonName="Fotografos" link='/Photographers'></Button>
-              <Button buttonName="Fotos" link='/Pictures'></Button>
-              <Button buttonName="Albumes" link='/Albums'></Button>
-            </div>
+          <div className='ButtonSpace'>
+            <Button buttonName='Inicio' link='/landingPage'/>
+              <div className="ButtonContainer">
+                <Button buttonName="Fotografos" link='/Photographers'></Button>
+                <Button buttonName="Fotos" link='/Pictures'></Button>
+                <Button buttonName="Albumes" link='/Albums'></Button>
+              </div>
+          </div>
 
             <div className='formsPage'>
               <div className='formsContainer'>
@@ -455,11 +468,14 @@ const handleAddTagsOptions = (newTagsOptions: TagOptions) => {
           <Route path='/Pictures'>
             
               <div className='Background'>
+              <div className='ButtonSpace'>
+              <Button buttonName='Inicio' link='/landingPage'/>
                 <div className="ButtonContainer">
                   <Button buttonName="Fotografos" link='/Photographers'></Button>
                   <Button buttonName="Fotos" link='/Pictures'></Button>
                   <Button buttonName="Albumes" link='/Albums'></Button>
                 </div>
+              </div>
                   
                   <div className='formsPage'>
                     <div className='formsContainer'>
@@ -497,6 +513,8 @@ const handleAddTagsOptions = (newTagsOptions: TagOptions) => {
           <Route path='/details/:id'>
             <PictureDetails
               list={PicturesElem}
+              photographerList={PhotographerElem}
+              albumList={AlbumElem}
             />
           </Route>
 
@@ -504,6 +522,7 @@ const handleAddTagsOptions = (newTagsOptions: TagOptions) => {
             <AlbumDetails
               list={AlbumElem}
               pictures={PicturesElem}
+              photographers={PhotographerElem}
             />
           </Route>
 
@@ -524,5 +543,24 @@ const handleAddTagsOptions = (newTagsOptions: TagOptions) => {
     </HashRouter>
   );
 }
+
+/*<Tag TagName='Paisajes'></Tag>
+            <Tag TagName='Centro Comercial'></Tag>
+            <Tag TagName='Paz'></Tag>
+            <Tag TagName='Animales'></Tag>
+            <Tag TagName='Electrodomésticos'></Tag>
+            <Tag TagName='Cali'></Tag>
+            <Tag TagName='Paisaje canadiense'></Tag>
+            <Tag TagName='Peces'></Tag>
+            <Tag TagName='Halloween'></Tag>
+            <Tag TagName='Navidad'></Tag>
+            <Tag TagName='Matrimonio'></Tag>
+            <Tag TagName='Cultura colombiana'></Tag>
+            <Tag TagName='Tropical'></Tag>
+            <Tag TagName='Oceano'></Tag>
+            <Tag TagName='selva'></Tag>
+            <Tag TagName='Repostería'></Tag>
+            <Tag TagName='Pasteles'></Tag>
+            <Tag TagName='Calabaza'></Tag>*/
 
 export default App;

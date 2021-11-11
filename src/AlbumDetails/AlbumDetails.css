@@ -1,0 +1,40 @@
+.AlbumDetInfo{
+    background-image: url('../assets/Images/fondoDetail.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    padding: 10em 20em;
+    text-align: center;
+    color: #A0A4B8;
+    position: relative;
+}
+
+.AlbumDetInfo::before{
+    content: '';
+    position: absolute;
+    background: rgba(255, 255, 255, 0.8);
+    top:0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+.info{
+    position: relative;
+}
+
+.AlbumSectionDet{
+    display: grid;
+    grid-template-columns: 300px repeat(3, 1fr);
+    grid-column-gap: 2em;
+    margin: 3em;
+}
+
+.AlbumTags{
+    margin-top: 3em;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+

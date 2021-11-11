@@ -100,7 +100,8 @@ const AlbumElemForms: React.FC <AlbumElemFormsProps> = (props) => {
            Photographer Name
             <select
             onChange={HandlePhotographerChange}
-            value={Photographer}>
+            value={Photographer}
+            className='InputForms'>
                 {props.Photographers.map(photographer => {
                     return <option 
                     key={photographer.PhotographerId}

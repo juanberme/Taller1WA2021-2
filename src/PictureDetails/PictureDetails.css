@@ -1,0 +1,87 @@
+.picDetails{
+    margin-bottom: 6em;
+}
+
+.PicDetailImg{
+    width: 80%;
+    height: 80%;
+    border-radius: 10px;
+    margin: 3em;
+    display: block;
+    margin: 4em auto;
+}
+
+.photographerSection{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin: 1.5em 0em;
+}
+
+.photographerInfo{
+    margin: 0.5em;
+}
+
+.photographerNameDet{
+    font-weight: bold;
+    font-size: 22px;
+    color: #A0A4B8;
+}
+
+.photographerLikesDet{
+    color: #A0A4B8;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.tagSectionDet{
+    margin-left: 1em;
+}
+
+.pictureSubsDet{
+    font-size: 16px;
+    color: #A0A4B8;
+}
+
+.photographerSubsDet{
+    font-weight: 500;
+    font-size: 18px;
+    color: #A0A4B8;
+}
+
+.pictureDateDet{
+    margin-top: 0.6em;
+    color: #A0A4B8;
+    font-size: 16px;
+}
+
+.button{
+    background: #45B69C;
+    border-radius: 8px;
+    font-size: 16px;
+    color: #ffffff;
+    padding: 0.6em 1.2em;;
+    border: none;
+    font-weight: bold;
+}
+
+.buttonDownloadDet{
+    width: 260px;
+    margin: 0.5em 1em;
+}
+
+.buttonLikeDet{
+    margin: 0.5em 0.25em 0.5em 1em;
+}
+
+.buttonSubscribeDet{
+    margin: 0.5em 0.25em 0.5em 1em;
+}
+
+.picDetContent{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 0em 7em;
+}

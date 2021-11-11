@@ -1,12 +1,13 @@
 import React from "react";
 import {useHistory} from 'react-router-dom';
+import { TagOptions } from "../Tag/TagOptions";
 import './Picture.css';
 
 export interface PicturesProps{
     PictureImg: string;
     id: number;
     PictureLikes: number;
-    PictureTags: string;
+    PictureTags: TagOptions[];
     PictureDate: string;
     type: 'edit'|'detail';
     onDelete?: (id: number) => void;
@@ -40,7 +41,6 @@ export const Pictures: React.FC<PicturesProps> = (props) =>{
 
     return (
         <div>
-            <h1>{props.PictureTags}</h1>
             <img src={props.PictureImg} className='PicImg' alt=''></img>
             <div className="PictureContainer">
                 {props.type === 'edit' && <>

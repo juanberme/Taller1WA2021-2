@@ -25,3 +25,9 @@
 .TagButton:hover{
     background: #45B69C;
 }
+
+.tagSectionDet{
+    margin: 0;
+    display: flex;
+    flex-direction: row;
+}

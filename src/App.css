@@ -7,6 +7,12 @@
   justify-content: flex-end;
   flex-direction: row;
 }
+
+.ButtonSpace{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
 /*.App {
   text-align: center;
 }

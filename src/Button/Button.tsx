@@ -5,7 +5,7 @@ import {Link as Rlink} from 'react-router-dom';
 interface ButtonProps{
     buttonName: string;
     link: string;
-    
+
 }
 
 export const Button: React.FC<ButtonProps> = (props) =>{

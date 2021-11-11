@@ -8,8 +8,8 @@ import { TagOptions } from "../Tag/TagOptions";
 interface PictureElemFormProps {
     editId: number|null;
     type: 'create' | 'edit';
-    onCreate: (newPicturesElem: {PictureLikes: number, PictureTags: string, PictureDate: string, PictureImg: string, AlbumId: number;}) => void; //permite crear un nuevo elemento
-    onEdit: (id: number, editPicturesElem: {PictureLikes: number, PictureTags: string;}) => void; //permite editar un nuevo elemento
+    onCreate: (newPicturesElem: {PictureLikes: number, PictureTags: TagOptions[], PictureDate: string, PictureImg: string, AlbumId: number;}) => void; //permite crear un nuevo elemento
+    onEdit: (id: number, editPicturesElem: {PictureLikes: number, PictureTags: TagOptions[];}) => void; //permite editar un nuevo elemento
     Albums: AlbumElemArray[];
     addTagsOptions: (newTagOptions: TagOptions) => void;
     tagsOptions: TagOptions[];
@@ -23,10 +23,10 @@ const PictureElemForm: React.FC <PictureElemFormProps> = ({ editId, type, onCrea
     const [formsSubmitted, setFormsSubmitted] = React.useState(false);
 
     //Para guardar la info del tag
-    const [ tag, setTag ] = React.useState(' ');
+    /*const [ tag, setTag ] = React.useState(' ');
     const handleTagChange: React.ChangeEventHandler<HTMLInputElement> = (event) =>{
         setTag(event.target.value);
-    }
+    }*/
 
     //Para guardar la info del url
     const [ url, setUrl ] = React.useState(' ');
@@ -79,33 +79,32 @@ const PictureElemForm: React.FC <PictureElemFormProps> = ({ editId, type, onCrea
     
 
     //Los requisitos para enviar el formulario
-    const isTagValid = tag.length >= 5;
     const isUrlValid = url.length >= 10;
     const isLikeValid = parseInt(like) > 100;
+
 
     //para enviar el formulario
     const handleSubmit: React.FormEventHandler<HTMLFormElement> = (event) =>{
         event.preventDefault();
         setFormsSubmitted(true);//cambia el estado del forms a true
-        if(type === 'create' && isTagValid && isUrlValid){
+        if(type === 'create' && isUrlValid){
             console.log('valid');//cuando los tags y el url cumple con la condicion
             console.log(manyTags);
             onCreate({
                 PictureLikes: parseInt(like),
-                PictureTags: tag,
+                PictureTags: manyTags,
                 PictureDate: date,
                 PictureImg: url, 
                 AlbumId: album
             });
             setLike('');
-            setTag('');
             setUrl('');
             setAlbum(0);
             setFormsSubmitted(false);
             //verficiar si es necesario
             history.push('/list');
-        } else if(type === 'edit' && isTagValid && isUrlValid){
-            onEdit(editId!, {PictureTags: tag, PictureLikes: parseInt(like)});
+        } else if(type === 'edit' && isUrlValid){
+            onEdit(editId!, {PictureTags: manyTags, PictureLikes: parseInt(like)});
         }
         else{
             console.log('invalid');//cuando los tags y el url NO cumple con la condicion
@@ -115,14 +114,7 @@ const PictureElemForm: React.FC <PictureElemFormProps> = ({ editId, type, onCrea
     return (<form className='PictureElemForm' onSubmit={handleSubmit}>
         <h2>{type === 'create' ? 'Agrega' : 'Edita'} las fotos que quieras {editId} </h2>
 
-        <label htmlFor='tag'>
-            Tag
-            <input name='tag' type='text' 
-            onChange={handleTagChange}
-            value={tag} 
-            className='InputForms'/> 
-            {(formsSubmitted && !isTagValid) && <p className='PictureElemForm__error'>The tag must be at least 5 characters</p>}
-        </label>
+        
        
         {type === 'create' && <label>
             Date
@@ -153,6 +145,7 @@ const PictureElemForm: React.FC <PictureElemFormProps> = ({ editId, type, onCrea
         <label>
             Album 
             <select
+            className='InputForms'
             onChange={handleAlbumChange}
             value={album}>
                 {Albums.map(album => {
@@ -164,20 +157,25 @@ const PictureElemForm: React.FC <PictureElemFormProps> = ({ editId, type, onCrea
             </select>
         </label>
 
-        <Autocomplete
-            multiple
-            freeSolo
-            disablePortal
-            id="combo-box-demo"
-            options={tagsOptions}
-            sx={{ width: 300 }}
-            renderInput={(params) => <TextField {...params} label="Tags" />}
-            onChange={handleManyTagsChange}
-            value={manyTags as any}
-            isOptionEqualToValue={(option, value) => {
-                return option.label === value.label
-            }}
-        />
+        <label className='rockstar'>
+            Tag
+            <Autocomplete
+                multiple
+                freeSolo
+                disablePortal
+                size="small"
+                id="combo-box-demo"
+                options={tagsOptions}
+                sx={{ width: 420 }}
+                renderInput={(params) => <TextField {...params}/>}
+                onChange={handleManyTagsChange}
+                value={manyTags as any}
+                isOptionEqualToValue={(option, value) => {
+                    return option.label === value.label
+                }}
+            />
+        </label>
+        
 
         <button className='ButtonForms'>
             {type === 'create' ? 'Agregar' : 'Editar'} 
@@ -185,5 +183,14 @@ const PictureElemForm: React.FC <PictureElemFormProps> = ({ editId, type, onCrea
         
     </form>);
 }
+
+/*<label htmlFor='tag'>
+            Tag
+            <input name='tag' type='text' 
+            onChange={handleTagChange}
+            value={tag} 
+            className='InputForms'/> 
+            {(formsSubmitted && !isTagValid) && <p className='PictureElemForm__error'>The tag must be at least 5 characters</p>}
+        </label>*/
 
 export default PictureElemForm;

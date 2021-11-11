@@ -1,8 +1,10 @@
+import { TagOptions } from "../Tag/TagOptions";
+
 export type PicturesElemArray = {
     id: number;
     PictureImg: string;
     PictureLikes: number;
-    PictureTags: string;
+    PictureTags: TagOptions[];
     PictureDate: string;
     AlbumId: number;
   }

@@ -21,6 +21,15 @@
     background: #F4F3F3;
 }
 
+/*.rockstar{
+    width: 40vw;
+    padding: 0.8em;
+    margin-top: 0.6em;
+    border-radius: 10px;
+    border: none;
+    background: #F4F3F3;
+}*/
+
 .ButtonForms{
     width: 15em;
     padding: 0.8em;
@@ -41,6 +50,10 @@
 .PictureElemForm label{
     display: block;
     margin-bottom: 20px;
+}
+
+.PictureElemForm select{
+    display: block;
 }
 
 .PictureElemForm input {

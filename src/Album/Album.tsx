@@ -41,8 +41,19 @@ export const Album: React.FC<AlbumProps> = (props) => {
 
     return(
         <div>
-            <h1>{props.AlbumName}</h1>
-            <img src={props.AlbumCover} className='PicImg' alt=''></img>
+            
+            <div className='AlbumPicInfo'>
+                <div className='AlbumCover'>
+                    <div className='AlbumColorContent'></div>
+                    <img src={props.AlbumCover} className='AlbumImg' alt=''></img>
+                </div>
+                <div className='AlbumInfo'>
+                    <h1 className='AlbumNameCover'>{props.AlbumName}</h1>
+                    <h3 className='AlbumTopicCover'>{props.AlbumTopic}</h3>
+                </div>
+            </div>
+            
+            
             <div className="PictureContainer">
                 {props.type === 'edit' && <>
                     {props.onDelete && <button className='PictureButton' onClick={handleAlbumDelete}>Delete</button>} 
