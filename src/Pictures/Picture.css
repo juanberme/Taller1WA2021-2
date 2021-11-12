@@ -33,8 +33,14 @@
     flex-direction: row;
     justify-content: space-around;
     flex-wrap: wrap;*/
-    display: grid;
+    /*display: grid;
     grid-template-columns: 300px repeat(3, 1fr);
+    grid-column-gap: 2em;
+    margin: 3em;*/
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
     grid-column-gap: 2em;
     margin: 3em;
 }
